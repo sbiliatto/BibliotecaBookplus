@@ -1,0 +1,70 @@
+.rodape{
+    background:#f3f4f6;
+    padding:80px 0 40px;
+}
+
+
+.topo{
+    display:flex;
+    justify-content:space-between;
+    gap:80px;
+    flex-wrap:wrap;
+}
+
+.esquerda{
+    max-width:320px;
+}
+
+.logo{
+    font-weight:800;
+    color:#0a2540;
+}
+
+.descricao{
+    margin:20px 0;
+    color:#6b7280;
+    line-height:1.6;
+}
+
+
+.links{
+    display:flex;
+    gap:80px;
+    flex-wrap:wrap;
+}
+
+.links h6{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:2px;
+    color:#0a2540;
+    margin-bottom:15px;
+}
+
+.links a{
+    display:block;
+    text-decoration:none;
+    color:#6b7280;
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.links a:hover{
+    color:#0a2540;
+}
+
+.linha{
+    margin:60px 0 30px;
+    border:0;
+    border-top:1px solid #e5e7eb;
+}
+
+.baixo{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    font-size:12px;
+    letter-spacing:1px;
+    color:#9ca3af;
+}
+

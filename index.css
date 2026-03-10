@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+IN+Guides&display=swap');
+
+:root {
+    --primary: #007bff;
+    --secondary: #007bff;
+    --tertiary: #007bff;
+    --accent: #007bff;
+
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+}
