@@ -1,56 +1,63 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import Header from "../../components/Header/Header";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Header from "../../components/Header/Header.jsx";
+import Titulo from "../../components/Titulo/Titulo.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
-import Button from "../../components/Button/Button.jsx";
 
-export default function Livros() {
+export default function Livro() {
     const { id } = useParams();
 
-    const livro = {
-        titulo: "O Silêncio do Mar",
-        autor: "Helena Vasconcelos",
-        categoria: "Romance",
-        descricao: "Uma história profunda sobre as memórias de uma vila costeira e os segredos guardados pelas marés. Helena Vasconcelos explora a conexão humana com a natureza e o tempo.",
-        imagem: "/img1.png",
-        faixaEtaria: "14 anos"
-    };
+    const [livro, setLivro] = useState(null);
+
+    async function buscarLivro() {
+        let resposta = await fetch(`https://apps-api-livros.ucxocw.easypanel.host/livro/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        let dados = await resposta.json();
+        setLivro(dados.livro);
+    }
+
+    useEffect(function () {
+        buscarLivro();
+    }, []);
 
     return (
         <>
             <Header titulo="BOOKPLUS" />
-            <div className="container mt-5 mb-5">
-                <Link to="/catalogo" className="btn btn-outline-secondary mb-4">
-                    ← Voltar ao catálogo
-                </Link>
 
-                <div className="row">
-                    <div className="col-md-4">
-                        <img
-                            src={livro.imagem}
-                            alt={livro.titulo}
-                            className="img-fluid rounded shadow"
-                        />
-                    </div>
-                    <div className="col-md-8">
-                        <span className="badge bg-primary mb-2">{livro.categoria}</span>
-                        <h1 className="display-4">{livro.titulo}</h1>
-                        <h4 className="text-muted mb-4">Por: {livro.autor}</h4>
+            <div className="container mt-5">
+                <Titulo
+                    subtitulo="DETALHES"
+                    titulo="Informações do Livro"
+                />
 
-                        <div className="mb-4">
-                            <h5>Sinopse</h5>
-                            <p className="lead">{livro.descricao}</p>
+                {livro ? (
+                    <div className="row mt-4 align-items-center">
+                        <div className="col-md-4 text-center mb-4">
+                            <img
+                                src={livro.imagem}
+                                alt={livro.titulo}
+                                className="img-fluid rounded shadow"
+                            />
                         </div>
 
-                        <ul className="list-group list-group-flush mb-4">
-                            <li className="list-group-item"><strong>Classificação:</strong> {livro.faixaEtaria}</li>
-                            <li className="list-group-item"><strong>ID do Produto:</strong> {id}</li>
-                        </ul>
-
-                        <Button texto="Adicionar aos Favoritos" tipo="acesso" />
+                        <div className="col-md-8">
+                            <h2>{livro.titulo}</h2>
+                            <p><strong>Autor:</strong> {livro.autor}</p>
+                            <p><strong>Categoria:</strong> {livro.categoria}</p>
+                            <p><strong>Faixa etária:</strong> {livro.faixa_etaria}</p>
+                            <p><strong>Descrição:</strong> {livro.descricao}</p>
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <p>Carregando livro...</p>
+                )}
             </div>
+
             <Footer />
         </>
     );
